@@ -1,0 +1,11 @@
+gradlew
+.idea/
+gradle/
+.gradle/
+build/
+*.class
+*.jar
+docs/latex/
+JaGist.iml
+gradlew.bat
+gradlew
