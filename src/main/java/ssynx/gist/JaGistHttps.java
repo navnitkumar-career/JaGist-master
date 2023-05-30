@@ -1,5 +1,6 @@
 package ssynx.gist;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.net.URL;
@@ -21,7 +22,7 @@ class JaGistHttps {
 
         try(BufferedReader buffer = new BufferedReader(reader)){
             String line;
-            while((line = buffer.readLine()) != null)
+            while((line = BoundedLineReader.readLine(buffer, 1000000)) != null)
                 content.append(line).append('\n');
         } finally {
             ist.close();
@@ -39,7 +40,7 @@ class JaGistHttps {
         InputStreamReader reader = new InputStreamReader(stream,Charset.forName("UTF-8"));
         try (BufferedReader streamBuf = new BufferedReader(reader)) {
 
-            while ((line = streamBuf.readLine()) != null)
+            while ((line = BoundedLineReader.readLine(streamBuf, 1000000)) != null)
                 full.append(line);
 
         } finally {
