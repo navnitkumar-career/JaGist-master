@@ -1,5 +1,7 @@
 package ssynx.gist;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.net.URL;
@@ -90,7 +92,7 @@ class JaGistHttps {
 
     static String get(final String getwhat, final String operation)
             throws IOException {
-        final URL target = new URL("https://api.github.com"+getwhat+operation);
+        final URL target = Urls.create("https://api.github.com"+getwhat+operation, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         final HttpsURLConnection connection = (HttpsURLConnection) target.openConnection();
         if(basicAuth != null)
             connection.setRequestProperty("Authorization",basicAuth);
@@ -107,7 +109,7 @@ class JaGistHttps {
 
     static String post(final String operation, final String what)
             throws IOException {
-        final URL target = new URL("https://api.github.com/gists" + operation);
+        final URL target = Urls.create("https://api.github.com/gists" + operation, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         final HttpsURLConnection connection = (HttpsURLConnection) target.openConnection();
 
         connection.setDoOutput(true);
@@ -136,7 +138,7 @@ class JaGistHttps {
 
     static String patch(final String operation, final String what)
             throws IOException {
-        final URL target = new URL("https://api.github.com/gists" + operation);
+        final URL target = Urls.create("https://api.github.com/gists" + operation, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         final HttpsURLConnection connection = (HttpsURLConnection) target.openConnection();
 
         connection.setDoOutput(true);
@@ -166,7 +168,7 @@ class JaGistHttps {
 
     static void delete(final String operation)
             throws IOException {
-        final URL target = new URL("https://api.github.com/gists" + operation);
+        final URL target = Urls.create("https://api.github.com/gists" + operation, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         final HttpsURLConnection connection = (HttpsURLConnection) target.openConnection();
 
         connection.setRequestMethod("DELETE");
@@ -182,7 +184,7 @@ class JaGistHttps {
 
     static void put(final String operation)
             throws IOException {
-        final URL target = new URL("https://api.github.com/gists" + operation);
+        final URL target = Urls.create("https://api.github.com/gists" + operation, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         final HttpsURLConnection connection = (HttpsURLConnection) target.openConnection();
 
         connection.setRequestMethod("PUT");
@@ -199,7 +201,7 @@ class JaGistHttps {
 
     static String getApiStatus(final String what)
             throws IOException {
-        final URL target = new URL("https://status.github.com/api/"+what+".json");
+        final URL target = Urls.create("https://status.github.com/api/"+what+".json", Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
         final HttpsURLConnection connection = (HttpsURLConnection) target.openConnection();
 
         String res;
